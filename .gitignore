@@ -39,3 +39,26 @@ Temporary Items
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+
+### NODE ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+### BUILD ###
+dist/
+dist-ssr/
+*.local
+
+### CAPACITOR ###
+android/
+ios/
+
+### ENV ###
+.env
+.env.local
+.env.*.local

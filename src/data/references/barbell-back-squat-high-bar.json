@@ -1,0 +1,346 @@
+{
+  "exerciseId": "barbell_back_squat",
+  "variant": "high_bar",
+  "source": "biomechanics_literature",
+  "phaseTimingRatios": {
+    "eccentric": 0.55,
+    "pause": 0.05,
+    "concentric": 0.40
+  },
+  "trajectory": [
+    {
+      "t": 0.0,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 170,
+        "hipFlexion": 170,
+        "torsoLean": 5,
+        "kneeValgus": 0,
+        "lumbarFlexion": 0,
+        "ankleDorsiflexion": 90
+      }
+    },
+    {
+      "t": 0.05,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 160,
+        "hipFlexion": 160,
+        "torsoLean": 8,
+        "kneeValgus": 0,
+        "lumbarFlexion": 0,
+        "ankleDorsiflexion": 88
+      }
+    },
+    {
+      "t": 0.10,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 148,
+        "hipFlexion": 148,
+        "torsoLean": 12,
+        "kneeValgus": 0,
+        "lumbarFlexion": 1,
+        "ankleDorsiflexion": 85
+      }
+    },
+    {
+      "t": 0.15,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 135,
+        "hipFlexion": 135,
+        "torsoLean": 18,
+        "kneeValgus": 0,
+        "lumbarFlexion": 2,
+        "ankleDorsiflexion": 80
+      }
+    },
+    {
+      "t": 0.20,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 122,
+        "hipFlexion": 122,
+        "torsoLean": 24,
+        "kneeValgus": 1,
+        "lumbarFlexion": 3,
+        "ankleDorsiflexion": 76
+      }
+    },
+    {
+      "t": 0.25,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 110,
+        "hipFlexion": 110,
+        "torsoLean": 30,
+        "kneeValgus": 1,
+        "lumbarFlexion": 4,
+        "ankleDorsiflexion": 72
+      }
+    },
+    {
+      "t": 0.30,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 100,
+        "hipFlexion": 100,
+        "torsoLean": 35,
+        "kneeValgus": 1,
+        "lumbarFlexion": 5,
+        "ankleDorsiflexion": 68
+      }
+    },
+    {
+      "t": 0.35,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 92,
+        "hipFlexion": 92,
+        "torsoLean": 40,
+        "kneeValgus": 2,
+        "lumbarFlexion": 6,
+        "ankleDorsiflexion": 65
+      }
+    },
+    {
+      "t": 0.40,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 85,
+        "hipFlexion": 85,
+        "torsoLean": 42,
+        "kneeValgus": 2,
+        "lumbarFlexion": 7,
+        "ankleDorsiflexion": 62
+      }
+    },
+    {
+      "t": 0.45,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 80,
+        "hipFlexion": 80,
+        "torsoLean": 45,
+        "kneeValgus": 2,
+        "lumbarFlexion": 8,
+        "ankleDorsiflexion": 60
+      }
+    },
+    {
+      "t": 0.50,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 78,
+        "hipFlexion": 78,
+        "torsoLean": 45,
+        "kneeValgus": 2,
+        "lumbarFlexion": 8,
+        "ankleDorsiflexion": 58
+      }
+    },
+    {
+      "t": 0.55,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 78,
+        "hipFlexion": 78,
+        "torsoLean": 45,
+        "kneeValgus": 2,
+        "lumbarFlexion": 8,
+        "ankleDorsiflexion": 58
+      }
+    },
+    {
+      "t": 0.60,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 82,
+        "hipFlexion": 82,
+        "torsoLean": 43,
+        "kneeValgus": 2,
+        "lumbarFlexion": 7,
+        "ankleDorsiflexion": 60
+      }
+    },
+    {
+      "t": 0.65,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 90,
+        "hipFlexion": 90,
+        "torsoLean": 40,
+        "kneeValgus": 1,
+        "lumbarFlexion": 6,
+        "ankleDorsiflexion": 64
+      }
+    },
+    {
+      "t": 0.70,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 102,
+        "hipFlexion": 102,
+        "torsoLean": 34,
+        "kneeValgus": 1,
+        "lumbarFlexion": 4,
+        "ankleDorsiflexion": 70
+      }
+    },
+    {
+      "t": 0.75,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 115,
+        "hipFlexion": 115,
+        "torsoLean": 26,
+        "kneeValgus": 1,
+        "lumbarFlexion": 3,
+        "ankleDorsiflexion": 75
+      }
+    },
+    {
+      "t": 0.80,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 130,
+        "hipFlexion": 130,
+        "torsoLean": 20,
+        "kneeValgus": 0,
+        "lumbarFlexion": 2,
+        "ankleDorsiflexion": 80
+      }
+    },
+    {
+      "t": 0.85,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 145,
+        "hipFlexion": 145,
+        "torsoLean": 14,
+        "kneeValgus": 0,
+        "lumbarFlexion": 1,
+        "ankleDorsiflexion": 84
+      }
+    },
+    {
+      "t": 0.90,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 155,
+        "hipFlexion": 155,
+        "torsoLean": 10,
+        "kneeValgus": 0,
+        "lumbarFlexion": 0,
+        "ankleDorsiflexion": 87
+      }
+    },
+    {
+      "t": 0.95,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 165,
+        "hipFlexion": 165,
+        "torsoLean": 6,
+        "kneeValgus": 0,
+        "lumbarFlexion": 0,
+        "ankleDorsiflexion": 89
+      }
+    },
+    {
+      "t": 1.0,
+      "joints": {},
+      "criticalAngles": {
+        "kneeFlexion": 170,
+        "hipFlexion": 170,
+        "torsoLean": 5,
+        "kneeValgus": 0,
+        "lumbarFlexion": 0,
+        "ankleDorsiflexion": 90
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "name": "kneeFlexion",
+      "jointTriple": [23, 25, 27],
+      "phase": "all",
+      "min": 60,
+      "max": 175,
+      "ideal": 80,
+      "severity": "warning",
+      "plane": "sagittal"
+    },
+    {
+      "name": "hipFlexion",
+      "jointTriple": [11, 23, 25],
+      "phase": "all",
+      "min": 60,
+      "max": 175,
+      "ideal": 80,
+      "severity": "warning",
+      "plane": "sagittal"
+    },
+    {
+      "name": "kneeValgus",
+      "jointTriple": [23, 25, 27],
+      "phase": "all",
+      "min": -5,
+      "max": 5,
+      "ideal": 0,
+      "severity": "critical",
+      "plane": "frontal"
+    },
+    {
+      "name": "lumbarFlexion",
+      "jointTriple": [11, 23, 25],
+      "phase": "eccentric",
+      "min": 0,
+      "max": 15,
+      "ideal": 5,
+      "severity": "critical",
+      "plane": "sagittal"
+    },
+    {
+      "name": "torsoLean",
+      "jointTriple": [23, 11, 12],
+      "phase": "all",
+      "min": 0,
+      "max": 55,
+      "ideal": 40,
+      "severity": "warning",
+      "plane": "sagittal"
+    },
+    {
+      "name": "ankleDorsiflexion",
+      "jointTriple": [25, 27, 31],
+      "phase": "all",
+      "min": 50,
+      "max": 95,
+      "ideal": 65,
+      "severity": "warning",
+      "plane": "sagittal"
+    }
+  ],
+  "velocityProfile": [
+    {
+      "phase": "eccentric",
+      "minVelocity": 5,
+      "maxVelocity": 30,
+      "targetSteadiness": 0.8
+    },
+    {
+      "phase": "pause",
+      "minVelocity": 0,
+      "maxVelocity": 5,
+      "targetSteadiness": 0.95
+    },
+    {
+      "phase": "concentric",
+      "minVelocity": 10,
+      "maxVelocity": 80,
+      "targetSteadiness": 0.6
+    }
+  ]
+}
