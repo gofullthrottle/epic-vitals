@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { scoreRep } from './scoring-engine'
-import type { NormalizedKeyframe, AngleConstraint } from '../types/reference'
+import type { NormalizedKeyframe } from '../types/reference'
 
 describe('scoreRep', () => {
   const mockKeyframes: NormalizedKeyframe[] = [
