@@ -3,14 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { SkeletonOverlay } from '../components/SkeletonOverlay'
 import { HUD } from '../components/HUD'
 import { useSessionStore } from '../store/session-store'
-import type { Landmark } from '../types/pose'
-import { JointId } from '../types/pose'
+import { usePoseDetection } from '../hooks/usePoseDetection'
 
 /**
- * Camera screen: live camera feed + skeleton overlay + HUD.
- * MediaPipe integration is stubbed — the camera feed displays,
- * and the pose processing pipeline is wired up but awaiting
- * the MediaPipe Pose Landmarker connection.
+ * Camera screen: live camera feed + MediaPipe pose detection
+ * + deviation-colored skeleton overlay + HUD.
  */
 export function Camera() {
   const navigate = useNavigate()
@@ -24,11 +21,39 @@ export function Camera() {
     lastRepReport,
     isRecording,
     setRecording,
+    recordRep,
   } = useSessionStore()
 
-  // TODO: setLandmarks will be called by MediaPipe pose detection callback
-  const [landmarks, _setLandmarks] = useState<Record<JointId, Landmark> | null>(null)
   const [videoDimensions, setVideoDimensions] = useState({ width: 640, height: 480 })
+
+  // MediaPipe + full engine pipeline
+  const pose = usePoseDetection(videoRef, isRecording)
+
+  // Sync rep detections to session store
+  useEffect(() => {
+    if (pose.lastRepScore && pose.repCount > currentRepNumber) {
+      recordRep({
+        repNumber: pose.repCount,
+        durationMs: 0,
+        form: pose.lastRepScore,
+        tempo: {
+          eccentricVelocity: [],
+          concentricVelocity: [],
+          peakConcentricVelocity: 0,
+          eccentricSteadiness: 0,
+          transitionSmoothness: 0,
+          meanConcentricVelocity: 0,
+          peakVelocity: 0,
+          timeToPeakVelocity: 0,
+        },
+        overallScore: pose.lastRepScore.overall,
+        primaryCue: pose.lastRepScore.deviations[0]?.cue ?? 'Good form!',
+        secondaryCues: pose.lastRepScore.deviations.slice(1).map((d) => d.cue),
+        fatigueIndicator: 0,
+        poseFrames: [],
+      })
+    }
+  }, [pose.repCount, pose.lastRepScore, currentRepNumber, recordRep])
 
   // Start camera feed
   useEffect(() => {
@@ -66,14 +91,6 @@ export function Camera() {
     }
   }, [])
 
-  // TODO: Connect MediaPipe Pose Landmarker here
-  // The integration point is:
-  //   1. Create a PoseLandmarker instance
-  //   2. On each video frame, call poseLandmarker.detectForVideo(videoElement, timestamp)
-  //   3. Convert results to Record<JointId, Landmark>
-  //   4. Call setLandmarks(convertedLandmarks)
-  //   5. Feed through PoseProcessor → AngleCalculator → RepDetector → ScoringEngine
-
   const handleEndSet = () => {
     setRecording(false)
     navigate('/session/review')
@@ -87,6 +104,19 @@ export function Camera() {
   const exerciseName = session?.exercises[0]?.exerciseId
     .replace(/_/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase()) ?? 'Unknown Exercise'
+
+  // Determine coaching cue — prefer live pose data, fall back to last rep report
+  const activeCue = pose.lastRepScore?.deviations[0]?.cue
+    ?? lastRepReport?.primaryCue
+    ?? null
+
+  const activeSeverity = pose.lastRepScore?.deviations[0]?.severity
+    ?? lastRepReport?.form.deviations[0]?.severity
+    ?? 'minor'
+
+  const displayScore = pose.lastRepScore?.overall
+    ?? lastRepReport?.overallScore
+    ?? null
 
   return (
     <div
@@ -110,9 +140,9 @@ export function Camera() {
       />
 
       <SkeletonOverlay
-        landmarks={landmarks}
-        deviations={{}}
-        tolerances={{}}
+        landmarks={pose.landmarks}
+        deviations={pose.deviations}
+        tolerances={pose.tolerances}
         width={videoDimensions.width}
         height={videoDimensions.height}
       />
@@ -121,14 +151,58 @@ export function Camera() {
         exerciseName={exerciseName}
         setNumber={currentSetIndex + 1}
         totalSets={4}
-        repNumber={currentRepNumber}
+        repNumber={isRecording ? pose.repCount : currentRepNumber}
         targetReps={8}
-        lastRepScore={lastRepReport?.overallScore ?? null}
-        coachingCue={lastRepReport?.primaryCue ?? null}
-        cueSeverity={
-          lastRepReport?.form.deviations[0]?.severity ?? 'minor'
-        }
+        lastRepScore={displayScore}
+        coachingCue={activeCue}
+        cueSeverity={activeSeverity}
       />
+
+      {/* Status indicator */}
+      {!pose.isReady && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            padding: '16px 24px',
+            borderRadius: 12,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            color: '#FFF',
+            fontSize: 14,
+            textAlign: 'center',
+          }}
+        >
+          {pose.error
+            ? `Pose detection error: ${pose.error}`
+            : 'Loading pose detection model...'}
+        </div>
+      )}
+
+      {/* Phase indicator (when recording) */}
+      {isRecording && pose.isReady && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 56,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            padding: '4px 12px',
+            borderRadius: 12,
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            color: pose.currentPhase === 'eccentric' ? '#3B82F6'
+              : pose.currentPhase === 'concentric' ? '#22C55E'
+              : '#EAB308',
+            fontSize: 12,
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+          }}
+        >
+          {pose.currentPhase}
+        </div>
+      )}
 
       {/* Controls */}
       <div
@@ -144,15 +218,20 @@ export function Camera() {
       >
         <button
           onClick={() => setRecording(!isRecording)}
+          disabled={!pose.isReady}
           style={{
             padding: '12px 24px',
             borderRadius: 24,
             border: 'none',
-            backgroundColor: isRecording ? '#EF4444' : '#22C55E',
+            backgroundColor: !pose.isReady
+              ? '#555'
+              : isRecording
+                ? '#EF4444'
+                : '#22C55E',
             color: '#FFF',
             fontSize: 16,
             fontWeight: 600,
-            cursor: 'pointer',
+            cursor: pose.isReady ? 'pointer' : 'not-allowed',
           }}
         >
           {isRecording ? 'Stop Set' : 'Start Set'}
